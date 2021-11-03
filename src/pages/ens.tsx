@@ -75,9 +75,9 @@ export default function Ens() {
             record.map((i: any) => (
               <div key={i.name}>
                 <Tooltip
-                  title={`Allow registration date: ${new Date(
+                  title={`Allow registration date: ${dayjs(
                     Number(`${Number(i.expiryDate) + gracePeriod}000`),
-                  )}`}
+                  ).format('YYYY-MM-DD HH:mm:ss')} (UTC+08:00)`}
                 >
                   <a
                     href={`https://app.ens.domains/name/${i.name}`}

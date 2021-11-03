@@ -15,6 +15,13 @@ export default function Footer() {
       >
         <span>Github</span>
       </a>
+      <a
+        href="https://gitcoin.co/grants/3525/flashnftloot-tools"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <span>Donate</span>
+      </a>
       <div>
         <Network />
       </div>

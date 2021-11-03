@@ -12,6 +12,7 @@ $ yarn start
 
 ## Feature
 - Find Unclaimed NFT ID
+- Find the forgotten ENS domain
 
 ## Contact / Social Media
 - [Website](https://flashnft.io)

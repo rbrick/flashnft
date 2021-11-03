@@ -1,5 +1,6 @@
 import { Link } from 'umi';
 import ProCard from '@ant-design/pro-card';
+import { Badge } from 'antd';
 
 import styles from '@/pages/index.less';
 
@@ -11,19 +12,31 @@ export default function Home() {
       </div>
       <div>
         <h2>Introduce to everyone FlashNFT</h2>
-        <p>
-          One-stop NFT tool platform, Provide efficient and easy-to-use NFT
-          tools
-        </p>
+        <p>Establish a fair, open and simple universal NFT tool platform</p>
       </div>
       <div className={styles.tools}>
-        <ProCard
-          title="Find Unclaimed NFT ID"
-          style={{ maxWidth: 300 }}
-          actions={[<Link to="/unclaimed">Unclaimed</Link>]}
-        >
-          <div>supporting ID queries that have not been minted (Ethereum)</div>
-        </ProCard>
+        <Badge.Ribbon text="ENS⚡️" color="red">
+          <ProCard
+            title="Find the forgotten ENS domain"
+            style={{ maxWidth: 300 }}
+            actions={[<Link to="/ens">Claim</Link>]}
+          >
+            <div>
+              The ENS domain names that will be allowed to be registered soon
+            </div>
+          </ProCard>
+        </Badge.Ribbon>
+        <Badge.Ribbon text="Loot" className={styles.loot}>
+          <ProCard
+            title="Find unclaimed NFT ID"
+            style={{ maxWidth: 300 }}
+            actions={[<Link to="/unclaimed">Claim</Link>]}
+          >
+            <div>
+              Supporting ID queries that have not been minted (Ethereum)
+            </div>
+          </ProCard>
+        </Badge.Ribbon>
       </div>
     </div>
   );

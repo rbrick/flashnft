@@ -16,8 +16,10 @@
   display: flex;
   justify-content: center;
   padding: 0 24px;
-  > div {
+  > div > div {
     margin: 0 24px;
+  }
+  > div > div:first-child {
     background-color: #000;
     border: 1px solid #fff;
     > ul {
@@ -28,6 +30,11 @@
       }
     }
   }
+}
+
+.loot {
+  background-color: #000;
+  border: 1px solid #fff;
 }
 
 .breathe {
@@ -79,9 +86,14 @@
     height: 100px;
   }
   .tools {
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
     > div {
-      margin: initial;
+      padding-bottom: 24px;
+      > div {
+        margin: initial;
+      }
     }
   }
 }

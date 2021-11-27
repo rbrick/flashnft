@@ -19,7 +19,11 @@ export const networkIds = {
   '128': { name: 'Heco', id: 128 },
   '137': { name: 'Matic', id: 137 },
   '250': { name: 'Fantom', id: 250 },
-  '1285': { name: 'Moonriver', id: 1285 },
+  '1285': {
+    name: 'Moonriver',
+    id: 1285,
+    contract: '0xC799237233E24e1703FE88CdD14C6816551A4dEE',
+  },
   '43113': { name: 'Avalanche Fuji', id: 43113 },
   '43114': { name: 'Avalanche', id: 43114 },
 };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Input, InputNumber } from 'antd';
 import { useWeb3React } from '@web3-react/core';
-import { contractConf } from '@/constants';
+import { contractConf, networkIds } from '@/constants';
 import { checkSum, getContract } from '@/utils';
 
 import styles from './unclaimed.less';
@@ -19,12 +19,33 @@ export default function Unclaimed() {
   const [errorMessage, setErrorMessage] = useState('Data is empty');
   const [loading, setLoading] = useState(false);
   const [nftId, setNftId] = useState([]);
-  const contract = getContract(contractConf.flashNftABI, contractConf.flashNft);
+  // const contract = getContract(contractConf.flashNftABI, (networkIds as { [key: string]: any })[chainId?.toString() as string].contract);
+
+  class ContractFactory {
+    createdContracts = new Map<string, any>();
+
+    constructor() {}
+
+    public getOrCreateContract(abi: any, address: string) {
+      if (this.createdContracts.has(address)) {
+        return this.createdContracts.get(address);
+      }
+      const contract = getContract(abi, address);
+      this.createdContracts.set(address, contract);
+      return contract;
+    }
+  }
+
+  const contractFactory = new ContractFactory();
 
   const findItem = async (start: number, end: number) => {
     try {
-      const res = await contract.methods
-        .unclaimed(checkSum(address), String(start), String(end))
+      const deployedContractAddress = (networkIds as { [key: string]: any })[
+        chainId?.toString() as string
+      ].contract;
+      const res = await contractFactory
+        .getOrCreateContract(contractConf.flashNftABI, deployedContractAddress)
+        .methods.unclaimed(checkSum(address), String(start), String(end))
         .call({ gasLimit: 30000000 });
       return res.filter((i: string) => i !== '0');
     } catch (e: any) {
@@ -38,7 +59,11 @@ export default function Unclaimed() {
     setLoading(true);
     setErrorMessage('Data is empty');
 
-    if (!account || !contract || chainId !== 1) {
+    const id = chainId?.toString() as string;
+
+    const networkConfig = (networkIds as { [key: string]: any })[id];
+
+    if (!account || !networkConfig.contract) {
       setLoading(false);
       setErrorMessage('Please connect the ethereum wallet');
       return false;
